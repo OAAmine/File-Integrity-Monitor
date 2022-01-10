@@ -1,0 +1,3 @@
+/home/oaamine/Projects/file_integrity_monitor/basicFim.sh|ada85267c5ed69976b31b906ea0d22bcf8c8c361ba6264f2941e8861d39dcb68
+/home/oaamine/Projects/file_integrity_monitor/simpleFIM.ps1|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+/home/oaamine/Projects/file_integrity_monitor/test.sh|d89c57aa628e41a48a7784739d76fc7732ae04426f6500a956ef73308911b090
