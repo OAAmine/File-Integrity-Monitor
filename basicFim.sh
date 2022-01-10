@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#create logs file if it doesn't exit 
-if [ ! -f ".baseline.txt" ]; then
-	touch .logs.txt
-fi
 
 
 
@@ -11,6 +7,11 @@ fi
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
+fi
+
+#create logs file if it doesn't exit 
+if [ ! -f ".logs.txt" ]; then
+	touch .logs.txt
 fi
 
 
@@ -46,10 +47,8 @@ function calculate_file_hash(){
 #--------------------------------------- Create new .baseline -------------------------------------------
 if [ "$ans" = "1" ];then
 	echo "Creating new .baseline"
-
 	#calculate hash from the target files and store them in a .baseline.txt file 
 	monitoring_dir=$(pwd)
-	
 	
 	#delete .baseline file if already exists
 	if [ -f ".baseline.txt" ]; then
@@ -79,8 +78,6 @@ else
 	declare -A path_hash_dict
 	Lines=$(cat .baseline.txt)
 	monitoring_dir=$(pwd)
-
-
 	#creating a dictionary with filepath as key and filehash as value
 	lines=$(cat .baseline.txt)
 	echo -e "Start...\nMonitoring Files...\nYou will be notified of any changes here\nFor more details about changes made, see logs.txt file\nPress [CTRL+C] to stop monitoring."
@@ -92,6 +89,7 @@ else
 	done 
 	while true
 	do
+		last_event=$(date)
 		sleep 1
 		
 		#checking if a file has been deleted 
@@ -104,13 +102,14 @@ else
 
 		for file in "$monitoring_dir"/*
 		do
-			hash=$(sha256sum $file | cut -d ' ' -f 1) s
+			hash=$(sha256sum $file | cut -d ' ' -f 1)
 			if [ ! -v path_hash_dict[$file] ]; then
 				echo -e "${RED}WARNING :${NC} a file has been ${ORANGE}CREATED ! ${NC}\n${BLUE}FILE NAME :${NC} $key"
+				$last_event= echo "$(date)"
 			else
 				if [ "$hash" = "${path_hash_dict[$file]}" ]; then
 				   continue
-				else
+				elif [ "$hash" != "${path_hash_dict[$file]}" ] && [[ $last_event != $(date) ]]; then
 					echo -e "${RED}WARNING :${NC} a file has been ${ORANGE}CHANGED ! ${NC}\n${BLUE}FILE NAME :${NC} $key"
 				fi
 			fi
