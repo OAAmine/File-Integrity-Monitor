@@ -21,11 +21,11 @@ else:
     monitoring_dir = os.getcwd()
 
 print("This is the monitorint directory : " + monitoring_dir)
-bl_path= os.path.join(monitoring_dir, '.baseline.txt')#baseline fie path
+bl_path= os.path.join(monitoring_dir, '.baseline.txt')#baseline file path
 
 
 def calculate_file_hash(filepath):
-    filename = str(monitoring_dir + filepath)
+    filename = str(monitoring_dir + "/"+ filepath)
     sha256_hash = hashlib.sha256()
     with open(filename, "rb") as f:
         # Read and update hash string value in blocks of 4K
@@ -59,7 +59,6 @@ if ans == '1':
     ]
     f = open(bl_path, "a")
     for entry in files:
-        print(calculate_file_hash(entry))
         f.write(calculate_file_hash(entry))
 
 else:
@@ -83,7 +82,7 @@ else:
         #chech if a file has been deleted
         for entry in filepath_filehash_dict:
             if os.path.isfile(monitoring_dir + entry) == False:
-                print("file has been DELETED  " + entry)
+                print("A file has been DELETED  " + entry)
         
         
         
@@ -93,11 +92,11 @@ else:
             hash = calculate_file_hash(f).split('|')[1]
             #check if a file has been create
             if  (f not in filepath_filehash_dict):
-                print("a new file has been CREATED  " + f)
+                print("A new file has been CREATED  " + f)
 
         
         
         
             #check if a file has been Modified
             elif hash != filepath_filehash_dict[f]:
-                print("file has been MODIFIED   " + f)
+                print("A file has been MODIFIED   " + f)

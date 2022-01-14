@@ -25,7 +25,7 @@ bl_path= os.path.join(monitoring_dir, '.baseline.txt')#baseline fie path
 
 
 def calculate_file_hash(filepath):
-    filename = str(monitoring_dir + filepath)
+    filename = str(monitoring_dir + "/"+ filepath)
     sha256_hash = hashlib.sha256()
     with open(filename, "rb") as f:
         # Read and update hash string value in blocks of 4K

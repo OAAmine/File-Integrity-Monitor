@@ -39,7 +39,7 @@ ORANGE='\033[0;33m'
 
 
 #User input 
-echo -ne "would you like to\n	1) Create a new .baseline\nOr\n	2) Proceed with the previously recorded one\n	[ 1 | 2 ] ? "
+echo -ne "would you like to\n	1) Collect a new .baseline\nOr\n	2) Proceed with the previously recorded one\n	[ 1 | 2 ] ? "
 read ans
 
 
@@ -62,7 +62,7 @@ function calculate_file_hash(){
 #--------------------------------------- Create new .baseline -------------------------------------------------#
 
 if [ "$ans" = "1" ];then
-	echo "Creating new .baseline"
+	echo "Collecting new .baseline"
 	#calculate hash from the target files and store them in a .baseline.txt file 	
 	#delete .baseline file if already exists
 	if [[ -f ".baseline.txt" ]]; then
@@ -81,7 +81,7 @@ if [ "$ans" = "1" ];then
 		echo $res >> .baseline.txt
 	done
 	sudo chmod 777 .baseline.txt #for testing purposes only, careful who you give r/w permission to
-	echo ".baseline created"
+	echo ".baseline collected"
 	
 
 
@@ -92,8 +92,6 @@ if [ "$ans" = "1" ];then
 #------------------------------------ Proceed with the previously recorded .baseline ----------------------------
 else
 	declare -A path_hash_dict
-	Lines=$(cat .baseline.txt)
-	# monitoring_dir=$(pwd)
 	#creating a dictionary with filepath as key and filehash as value
 	lines=$(cat .baseline.txt)
 	echo -e "Start...\nMonitoring Files...\nYou will be notified of any changes here\nFor more details about changes made, see logs.txt file\nPress [CTRL+C] to stop monitoring."
