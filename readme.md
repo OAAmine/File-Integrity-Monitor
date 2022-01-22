@@ -81,11 +81,9 @@ cd path/to/script
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-dzadz
 ```shell
 brew install --cask powershell
 ```
-dazdz
 ```shell
 $ pwsh
 cd  path/to/script
